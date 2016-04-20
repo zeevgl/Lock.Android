@@ -180,4 +180,13 @@ public class WebViewActivity extends AppCompatActivity {
         }
         return available;
     }
+
+    @Override
+    public void onBackPressed() {
+        if (webView.canGoBackOrForward(-1)) {
+            webView.goBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
