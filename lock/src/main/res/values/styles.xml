@@ -30,6 +30,7 @@
         <item name="Auth0.HeaderBackground">@color/com_auth0_lock_header_background</item>
         <item name="Auth0.HeaderLogo">@drawable/com_auth0_lock_header_logo</item>
         <item name="Auth0.HeaderText">@string/com_auth0_lock_header_title</item>
+        <item name="Auth0.HeaderTextColor">@color/com_auth0_lock_normal_text</item>
         <item name="Auth0.PrimaryColor">@color/com_auth0_lock_submit_normal</item>
     </style>
 
@@ -87,6 +88,19 @@
             @dimen/com_auth0_lock_widget_vertical_margin_field
         </item>
         <item name="android:lineSpacingExtra">@dimen/com_auth0_lock_title_text_spacing</item>
+        <item name="android:textSize">@dimen/com_auth0_lock_title_text</item>
+    </style>
+
+    <style name="Lock.Theme.Text.WebViewHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?android:attr/actionBarSize</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:background">?attr/Auth0.HeaderBackground</item>
+        <item name="android:textColor">?attr/Auth0.HeaderTextColor</item>
         <item name="android:textSize">@dimen/com_auth0_lock_title_text</item>
     </style>
 
@@ -169,7 +183,8 @@
 
     <style name="Lock.Theme.Widget.SocialButton">
         <item name="android:layout_height">@dimen/com_auth0_lock_social_button_height</item>
-        <item name="android:layout_margin">@dimen/com_auth0_lock_widget_vertical_margin_social</item>
+        <item name="android:layout_margin">@dimen/com_auth0_lock_widget_vertical_margin_social
+        </item>
         <item name="android:layout_centerInParent">true</item>
     </style>
 
@@ -204,6 +219,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">@dimen/com_auth0_lock_header_text</item>
         <item name="android:text">?attr/Auth0.HeaderText</item>
+        <item name="android:textColor">?attr/Auth0.HeaderTextColor</item>
     </style>
 
     <style name="Lock.Theme.Widget.Logo">
@@ -221,5 +237,14 @@
         <item name="android:layout_height">@dimen/com_auth0_lock_header_height</item>
         <item name="android:background">?attr/Auth0.HeaderBackground</item>
         <item name="android:minHeight">@dimen/com_auth0_lock_header_height</item>
+    </style>
+
+    <style name="Lock.Theme.ProgressBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:maxHeight">@dimen/com_auth0_lock_progress_bar_height</item>
+        <item name="android:minHeight">@dimen/com_auth0_lock_progress_bar_height</item>
+        <item name="android:progressDrawable">@drawable/com_auth0_lock_progress</item>
     </style>
 </resources>

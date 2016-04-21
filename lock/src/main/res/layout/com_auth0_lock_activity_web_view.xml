@@ -28,21 +28,27 @@
     android:layout_height="match_parent"
     tools:context="com.auth0.android.lock.provider.WebViewActivity">
 
+    <TextView
+        android:id="@+id/com_auth0_lock_title"
+        style="@style/Lock.Theme.Text.WebViewHeader"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="@dimen/com_auth0_lock_widget_horizontal_margin"
+        android:paddingRight="@dimen/com_auth0_lock_widget_horizontal_margin"
+        tools:text="Login with:" />
+
     <ProgressBar
         android:id="@+id/com_auth0_lock_progressbar"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@id/com_auth0_lock_title"
         android:visibility="gone"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        style="@style/Lock.Theme.ProgressBar" />
 
     <WebView
         android:id="@+id/com_auth0_lock_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_below="@id/com_auth0_lock_progressbar"
+        android:layout_below="@id/com_auth0_lock_title"
         android:visibility="invisible" />
 
     <RelativeLayout

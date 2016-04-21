@@ -76,5 +76,6 @@
     <dimen name="com_auth0_lock_separator_text_spacing">8dp</dimen>
     <dimen name="com_auth0_lock_link_sent_text_spacing">16dp</dimen>
     <dimen name="com_auth0_lock_widget_corner_radius">3dp</dimen>
+    <dimen name="com_auth0_lock_progress_bar_height">5dp</dimen>
 
 </resources>
