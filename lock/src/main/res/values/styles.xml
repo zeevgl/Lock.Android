@@ -91,17 +91,15 @@
         <item name="android:textSize">@dimen/com_auth0_lock_title_text</item>
     </style>
 
-    <style name="Lock.Theme.Text.WebViewHeader">
+    <style name="Lock.Theme.Text.Header.WebView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?android:attr/actionBarSize</item>
         <item name="android:lines">1</item>
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textAllCaps">true</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:background">?attr/Auth0.HeaderBackground</item>
         <item name="android:textColor">?attr/Auth0.HeaderTextColor</item>
-        <item name="android:textSize">@dimen/com_auth0_lock_title_text</item>
     </style>
 
     <style name="Lock.Theme.Text.Title.ResetPassword">
@@ -136,6 +134,7 @@
         <item name="android:singleLine">true</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">@dimen/com_auth0_lock_social_button_text</item>
+        <item name="android:textColor">@color/com_auth0_lock_social_text</item>
     </style>
 
     <style name="Lock.Theme.Text.ResultMessage">

@@ -27,18 +27,13 @@ package com.auth0.android.lock.provider;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ViewUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -47,17 +42,16 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.auth0.android.lock.BuildConfig;
 import com.auth0.android.lock.R;
 
 public class WebViewActivity extends AppCompatActivity {
 
     private static final String TAG = WebViewActivity.class.getSimpleName();
     private static final String KEY_REDIRECT_URI = "redirect_uri";
+    private static final String TITLE_RESOURCE_FORMAT = "com_auth0_lock_social_%s";
     public static final String CONNECTION_NAME_EXTRA = "serviceName";
 
     private WebView webView;
@@ -69,26 +63,11 @@ public class WebViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.com_auth0_lock_activity_web_view);
-        final ActionBar bar = getSupportActionBar();
         final TextView barTitle = (TextView) findViewById(R.id.com_auth0_lock_title);
-        String serviceName = getIntent().getStringExtra(CONNECTION_NAME_EXTRA);
-        serviceName = String.format(getString(R.string.com_auth0_lock_webview_header), serviceName);
-        TypedArray typedArray = getTheme().obtainStyledAttributes(R.style.Lock_Theme, new int[]{R.styleable.Lock_Theme_Auth0_HeaderBackground, R.styleable.Lock_Theme_Auth0_HeaderTextColor});
-        int barColor = typedArray.getColor(R.styleable.Lock_Theme_Auth0_HeaderBackground, ContextCompat.getColor(this, R.color.com_auth0_lock_header_background));
-        typedArray.recycle();
-        if (bar != null) {
-            barTitle.setVisibility(View.GONE);
-            findViewById(R.id.com_auth0_lock_title).setVisibility(View.GONE);
-            bar.setIcon(android.R.color.transparent);
-            bar.setDisplayShowTitleEnabled(false);
-            bar.setDisplayUseLogoEnabled(false);
-            bar.setDisplayHomeAsUpEnabled(false);
-            bar.setDisplayShowCustomEnabled(true);
-            bar.setBackgroundDrawable(new ColorDrawable(barColor));
-            bar.setTitle(serviceName);
-        } else {
-            barTitle.setText(serviceName);
-        }
+        String serviceName = getIntent().getStringExtra(CONNECTION_NAME_EXTRA).replace("-", "_");
+        int title = getResources().getIdentifier(String.format(TITLE_RESOURCE_FORMAT, serviceName), "string", getPackageName());
+        title = title == 0 ? R.string.com_auth0_lock_social_unknown_placeholder : title;
+        barTitle.setText(title);
         webView = (WebView) findViewById(R.id.com_auth0_lock_webview);
         webView.setVisibility(View.INVISIBLE);
         progressBar = (ProgressBar) findViewById(R.id.com_auth0_lock_progressbar);

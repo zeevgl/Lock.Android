@@ -30,7 +30,7 @@
 
     <TextView
         android:id="@+id/com_auth0_lock_title"
-        style="@style/Lock.Theme.Text.WebViewHeader"
+        style="@style/Lock.Theme.Text.Header.WebView"
         android:layout_alignParentTop="true"
         android:paddingLeft="@dimen/com_auth0_lock_widget_horizontal_margin"
         android:paddingRight="@dimen/com_auth0_lock_widget_horizontal_margin"

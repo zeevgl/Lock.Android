@@ -32,10 +32,7 @@
         <clip>
             <shape>
                 <corners android:radius="10dip" />
-                <gradient
-                    android:centerColor="@color/com_auth0_lock_submit_normal"
-                    android:endColor="@color/com_auth0_lock_submit_pressed"
-                    android:startColor="@color/com_auth0_lock_submit_normal" />
+                <color android:color="@color/com_auth0_lock_submit_normal" />
             </shape>
         </clip>
     </item>
