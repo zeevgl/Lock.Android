@@ -58,6 +58,9 @@
     <color name="com_auth0_lock_social_shopify">#96BF48</color>
     <color name="com_auth0_lock_social_dwolla">#F5891F</color>
 
+    <color name="com_auth0_lock_validation_error_text">#ffffff</color>
+    <color name="com_auth0_lock_validation_error_background">#CC000000</color>
+
     <color name="com_auth0_lock_header_background">#E5E5E5</color>
     <color name="com_auth0_lock_form_background">#ffffff</color>
     <color name="com_auth0_lock_terms_background">#EEEEEE</color>

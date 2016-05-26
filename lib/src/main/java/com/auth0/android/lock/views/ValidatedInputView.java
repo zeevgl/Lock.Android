@@ -44,6 +44,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.auth0.android.lock.R;
@@ -70,6 +71,8 @@ public class ValidatedInputView extends LinearLayout implements View.OnFocusChan
     private EditText input;
     private ImageView icon;
     private int inputIcon;
+    private PopupWindow errorPopup;
+    private TextView errorDescription;
 
     @IntDef({USERNAME, EMAIL, USERNAME_OR_EMAIL, NUMBER, PHONE_NUMBER, PASSWORD, MOBILE_PHONE, DATE})
     @Retention(RetentionPolicy.SOURCE)
@@ -104,6 +107,15 @@ public class ValidatedInputView extends LinearLayout implements View.OnFocusChan
 
     private void init(AttributeSet attrs) {
         inflate(getContext(), R.layout.com_auth0_lock_validated_input_view, this);
+        final View errorLayout = inflate(getContext(), R.layout.popover_layout, null);
+        errorPopup = new PopupWindow(errorLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        errorDescription = (TextView) errorLayout.findViewById(R.id.errorDescription);
+        errorLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                errorPopup.dismiss();
+            }
+        });
         icon = (ImageView) findViewById(R.id.com_auth0_lock_icon);
         input = (EditText) findViewById(R.id.com_auth0_lock_input);
 
@@ -182,6 +194,16 @@ public class ValidatedInputView extends LinearLayout implements View.OnFocusChan
         gd.setStroke((int) getResources().getDimension(R.dimen.com_auth0_lock_input_field_stroke_width), ContextCompat.getColor(getContext(), strokeColor));
         gd.setColor(ContextCompat.getColor(getContext(), R.color.com_auth0_lock_input_field_border_normal));
         ViewUtils.setBackground(parent, gd);
+
+        if (showError) {
+            errorDescription.setText("Invalid Email Address");
+            int xOff = parent.getWidth() / 4;
+            int yOff = -parent.getHeight() * 2;
+            errorPopup.showAsDropDown(parent, xOff, yOff);
+            //When keyboard closes the popup stays on the same place.
+        } else {
+            errorPopup.dismiss();
+        }
     }
 
     private void createBackground() {
