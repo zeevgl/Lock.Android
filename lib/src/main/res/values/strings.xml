@@ -165,4 +165,15 @@
     <string name="com_auth0_lock_description_mfa_input_code">Please enter a verification code from\n your code generator application.</string>
 
 
+
+    <string name="password_strength_identical_chars" formatted="false">No more than %d identical characters in a row (e.g., "%s" not allowed)</string>
+    <string name="password_strength_chars_length" formatted="false">At least %d characters in length</string>
+    <string name="password_strength_lowercase_letters">Lower case letters (a-z)</string>
+    <string name="password_strength_uppercase_letters">Upper case letters (A-Z)</string>
+    <string name="password_strength_numbers">Numbers (i.e. 0–9)</string>
+    <string name="password_strength_special_chars">Special characters (e.g. !@#$%^&amp;* )</string>
+    <string name="password_strength_title_at_least" formatted="false">And contain at least %d of the following %d types of characters:</string>
+    <string name="password_strength_title_must_have">Must have:</string>
+
+
 </resources>
