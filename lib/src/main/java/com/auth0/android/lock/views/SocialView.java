@@ -29,6 +29,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 
 import com.auth0.android.lock.events.SocialConnectionEvent;
@@ -44,6 +45,7 @@ public class SocialView extends LinearLayout implements SocialViewAdapter.Connec
     private static final String TAG = SocialView.class.getSimpleName();
     private LockWidgetSocial lockWidget;
     private RecyclerView recycler;
+    private HeightAnimation scaleAnimation;
 
     public SocialView(LockWidgetSocial lockWidget, boolean smallButtons) {
         super(lockWidget.getContext());
@@ -53,8 +55,7 @@ public class SocialView extends LinearLayout implements SocialViewAdapter.Connec
     }
 
     private void init(boolean smallButtons) {
-        setOrientation(VERTICAL);
-        setGravity(Gravity.CENTER);
+        setGravity(Gravity.CENTER_HORIZONTAL);
         recycler = new RecyclerView(getContext());
         List<Strategy> socialStrategies = lockWidget.getConfiguration().getSocialStrategies();
         SocialViewAdapter adapter = new SocialViewAdapter(getContext(), socialStrategies);
@@ -62,7 +63,7 @@ public class SocialView extends LinearLayout implements SocialViewAdapter.Connec
         adapter.setCallback(this);
         LayoutManager lm = new GridLayoutManager(getContext(), 1, smallButtons ? HORIZONTAL : VERTICAL, false);
         recycler.setLayoutManager(lm);
-        recycler.setHasFixedSize(true);
+        recycler.setHasFixedSize(false);
         recycler.setAdapter(adapter);
         recycler.setOverScrollMode(OVER_SCROLL_NEVER);
         LayoutParams recyclerParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -75,14 +76,27 @@ public class SocialView extends LinearLayout implements SocialViewAdapter.Connec
         lockWidget.onSocialLogin(new SocialConnectionEvent(connectionName));
     }
 
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        int minW = getPaddingLeft() + getPaddingRight() + getSuggestedMinimumWidth();
+//        int minH = getPaddingTop() + getPaddingBottom() + getSuggestedMinimumHeight();
+//
+//        int widthSpec = resolveSizeAndState(minW, widthMeasureSpec,0);
+//        int heightSpec = resolveSizeAndState(200, heightMeasureSpec,0);
+//
+//        setMeasuredDimension(widthSpec, heightSpec);
+//
+//
+//
+//
+//        measureChildren(widthMeasureSpec, heightMeasureSpec);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
+        recycler.measure(widthMeasureSpec, heightMeasureSpec);
         int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
         int recyclerHeight = ViewUtils.measureViewHeight(recycler);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        switch (heightMode){
+        switch (heightMode) {
             case MeasureSpec.UNSPECIFIED:
                 setMeasuredDimension(getMeasuredWidth(), recyclerHeight);
                 break;
@@ -93,5 +107,12 @@ public class SocialView extends LinearLayout implements SocialViewAdapter.Connec
                 setMeasuredDimension(getMeasuredWidth(), parentHeight);
                 break;
         }
+    }
+
+    public void animateVisibility(boolean show) {
+        if (scaleAnimation == null) {
+            scaleAnimation = new HeightAnimation(this);
+        }
+        scaleAnimation.start(show);
     }
 }

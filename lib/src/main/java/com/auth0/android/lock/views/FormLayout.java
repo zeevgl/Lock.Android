@@ -216,17 +216,8 @@ public class FormLayout extends RelativeLayout implements ModeSelectionView.Mode
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
-        int modeSelectionHeight = ViewUtils.measureViewHeight(modeSelectionView);
-        int socialHeight = ViewUtils.measureViewHeight(socialLayout);
-        int separatorHeight = ViewUtils.measureViewHeight(orSeparatorMessage);
-        int logInHeight = ViewUtils.measureViewHeight(logInForm);
-        int signUpHeight = ViewUtils.measureViewHeight(signUpForm);
-        int formHeight = modeSelectionHeight + socialHeight + separatorHeight + logInHeight + signUpHeight;
-        int customFieldsHeight = ViewUtils.measureViewHeight(customFieldsForm);
-        MarginLayoutParams holderParams = (MarginLayoutParams) formsHolder.getLayoutParams();
-        int sumHeight = formHeight + customFieldsHeight + holderParams.topMargin + holderParams.bottomMargin;
+        int sumHeight = calculateHeightSum();
 
         Log.v(TAG, String.format("Parent height %d, FormReal height %d", parentHeight, sumHeight));
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
@@ -241,6 +232,18 @@ public class FormLayout extends RelativeLayout implements ModeSelectionView.Mode
                 setMeasuredDimension(getMeasuredWidth(), parentHeight);
                 break;
         }
+    }
+
+    private int calculateHeightSum() {
+        int modeSelectionHeight = ViewUtils.measureViewHeight(modeSelectionView);
+        int socialHeight = ViewUtils.measureViewHeight(socialLayout);
+        int separatorHeight = ViewUtils.measureViewHeight(orSeparatorMessage);
+        int logInHeight = ViewUtils.measureViewHeight(logInForm);
+        int signUpHeight = ViewUtils.measureViewHeight(signUpForm);
+        int formHeight = modeSelectionHeight + socialHeight + separatorHeight + logInHeight + signUpHeight;
+        int customFieldsHeight = ViewUtils.measureViewHeight(customFieldsForm);
+        MarginLayoutParams holderParams = (MarginLayoutParams) formsHolder.getLayoutParams();
+        return formHeight + customFieldsHeight + holderParams.topMargin + holderParams.bottomMargin;
     }
 
     private void showCustomFieldsForm(@NonNull DatabaseSignUpEvent event) {
@@ -278,16 +281,26 @@ public class FormLayout extends RelativeLayout implements ModeSelectionView.Mode
                 isOpen = true;
             }
         }
-        if (modeSelectionView != null) {
-            modeSelectionView.setVisibility(isOpen ? GONE : VISIBLE);
-        }
-        if (orSeparatorMessage != null) {
-            orSeparatorMessage.setVisibility(isOpen ? GONE : VISIBLE);
-        }
-        if (socialLayout != null) {
-            socialLayout.setVisibility(isOpen ? GONE : VISIBLE);
-        }
+//        int deltaY = ViewUtils.measureViewHeight(this) + ViewUtils.measureViewHeight(orSeparatorMessage) + ViewUtils.measureViewHeight(socialLayout);
+//        if (isOpen) {
+//            deltaY = -deltaY;
+//        }
+
+
+
+//        AnimHelper.slideAnimate(modeSelectionView, !isOpen);
+//        modeSelectionView.animateVisibility(isOpen);
+//        orSeparatorMessage.animateVisibility(!isOpen);
+//        AnimHelper.slideAnimate(orSeparatorMessage, !isOpen);
+
+//            orSeparatorMessage.setVisibility(isOpen ? GONE : VISIBLE);
+        socialLayout.animateVisibility(!isOpen);
+//        AnimHelper.slideAnimate(socialLayout, !isOpen);
+//        AnimHelper.translate(logInForm, isOpen ? -calculateHeightSum() : calculateHeightSum());
+
+//            socialLayout.setVisibility(isOpen ? GONE : VISIBLE);
     }
+
 
     /**
      * Triggers the back action on the form.

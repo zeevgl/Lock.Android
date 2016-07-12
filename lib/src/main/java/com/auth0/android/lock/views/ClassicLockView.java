@@ -45,7 +45,6 @@ import com.auth0.android.lock.events.DatabaseLoginEvent;
 import com.auth0.android.lock.events.DatabaseSignUpEvent;
 import com.auth0.android.lock.events.FetchApplicationEvent;
 import com.auth0.android.lock.events.SocialConnectionEvent;
-import com.auth0.android.lock.views.interfaces.LockWidget;
 import com.auth0.android.lock.views.interfaces.LockWidgetForm;
 import com.squareup.otto.Bus;
 
@@ -130,6 +129,8 @@ public class ClassicLockView extends LinearLayout implements View.OnClickListene
         } else if (configuration.allowForgotPassword() && configuration.getInitialScreen() == InitialScreen.FORGOT_PASSWORD) {
             showChangePasswordForm(true);
         }
+
+        AnimHelper.changeVisibilityWithAlpha(this, true);
     }
 
     /**
@@ -216,7 +217,6 @@ public class ClassicLockView extends LinearLayout implements View.OnClickListene
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         if (configuration == null) {
             return;
         }
@@ -320,9 +320,12 @@ public class ClassicLockView extends LinearLayout implements View.OnClickListene
     public void onKeyboardStateChanged(boolean isOpen) {
         if (subForm != null) {
             subForm.onKeyboardStateChanged(isOpen);
-            bottomBanner.setVisibility(!isOpen && subForm instanceof SignUpFormView ? VISIBLE : GONE);
+
+//            AnimHelper.slideAnimate(bottomBanner, !isOpen && subForm instanceof SignUpFormView);
+//            bottomBanner.setVisibility(!isOpen && subForm instanceof SignUpFormView ? VISIBLE : GONE);
         }
-        headerView.setVisibility(isOpen ? GONE : VISIBLE);
+//        AnimHelper.changeVisibilityWithAlpha(headerView, !isOpen);
+//        headerView.setVisibility(isOpen ? GONE : VISIBLE);
         formLayout.onKeyboardStateChanged(isOpen);
     }
 
